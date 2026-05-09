@@ -23,7 +23,7 @@ const PIN_SIZE = 0.1
 export class SingleInnerPartitionPackingSolver extends BaseSolver {
   partitionInputProblem: PartitionInputProblem
   layout: OutputLayout | null = null
-  activeSubSolver: PackSolver2 | null = null
+  override activeSubSolver: PackSolver2 | null = null
   pinIdToStronglyConnectedPins: Record<PinId, ChipPin[]>
 
   constructor(params: {
@@ -177,8 +177,8 @@ export class SingleInnerPartitionPackingSolver extends BaseSolver {
    * Arranges them in a clean horizontal row centered at (0,0).
    */
   private createLinearDecouplingCapLayout(): OutputLayout {
-    const chips = Object.values(this.partitionInputProblem.chipMap).sort((a, b) =>
-      a.chipId.localeCompare(b.chipId),
+    const chips = Object.values(this.partitionInputProblem.chipMap).sort(
+      (a, b) => a.chipId.localeCompare(b.chipId),
     )
     const gap =
       this.partitionInputProblem.decouplingCapsGap ??
