@@ -13,8 +13,7 @@ import type {
   ChipId,
   NetId,
   ChipPin,
-  PartitionInputProblem,
-} from "../../types/InputProblem"
+  PartitionInputProblem, from "../../types/InputProblem"
 import { visualizeInputProblem } from "../LayoutPipelineSolver/visualizeInputProblem"
 import { createFilteredNetworkMapping } from "../../utils/networkFiltering"
 import { getPadsBoundingBox } from "./getPadsBoundingBox"
@@ -30,12 +29,10 @@ export class SingleInnerPartitionPackingSolver extends BaseSolver {
 
   constructor(params: {
     partitionInputProblem: PartitionInputProblem
-    pinIdToStronglyConnectedPins: Record<PinId, ChipPin[]>
-  }) {
+    pinIdToStronglyConnectedPins: Record<PinId, ChipPin[]>,) {
     super()
     this.partitionInputProblem = params.partitionInputProblem
-    this.pinIdToStronglyConnectedPins = params.pinIdToStronglyConnectedPins
-  }
+    this.pinIdToStronglyConnectedPins = params.pinIdToStronglyConnectedPins,
 
   override _step() {
     // Specialized layout for decoupling capacitors
@@ -45,15 +42,12 @@ export class SingleInnerPartitionPackingSolver extends BaseSolver {
     ) {
       this.layout = this.createLinearDecouplingCapLayout()
       this.solved = true
-      return
-    }
+      return,
 
     // Initialize PackSolver2 if not already created
     if (!this.activeSubSolver) {
       const packInput = this.createPackInput()
-      this.activeSubSolver = new PackSolver2(packInput)
-      this.activeSubSolver = this.activeSubSolver
-    }
+      this.activeSubSolver = new PackSolver2(packInput),
 
     // Run one step of the PackSolver2
     this.activeSubSolver.step()
@@ -61,8 +55,7 @@ export class SingleInnerPartitionPackingSolver extends BaseSolver {
     if (this.activeSubSolver.failed) {
       this.failed = true
       this.error = `PackSolver2 failed: ${this.activeSubSolver.error}`
-      return
-    }
+      return,
 
     if (this.activeSubSolver.solved) {
       // Apply the packing result to create the layout
@@ -70,16 +63,13 @@ export class SingleInnerPartitionPackingSolver extends BaseSolver {
         this.activeSubSolver.packedComponents,
       )
       this.solved = true
-      this.activeSubSolver = null
-    }
-  }
+      this.activeSubSolver = null,
 
   private createPackInput(): PackInput {
     // Fall back to filtered mapping (weak + strong)
     const pinToNetworkMap = createFilteredNetworkMapping({
       inputProblem: this.partitionInputProblem,
-      pinIdToStronglyConnectedPins: this.pinIdToStronglyConnectedPins,
-    }).pinToNetworkMap
+      pinIdToStronglyConnectedPins: this.pinIdToStronglyConnectedPins,).pinToNetworkMap
 
     // Create pack components for each chip
     const packComponents = Object.entries(
@@ -90,9 +80,8 @@ export class SingleInnerPartitionPackingSolver extends BaseSolver {
         padId: string
         networkId: string
         type: "rect"
-        offset: { x: number; y: number }
-        size: { x: number; y: number }
-      }> = []
+        offset: { x: number y: number }
+        size: { x: number y: number },> = []
 
       // Create a pad for each pin on this chip
       for (const pinId of chip.pins) {
@@ -107,15 +96,12 @@ export class SingleInnerPartitionPackingSolver extends BaseSolver {
           networkId: networkId,
           type: "rect" as const,
           offset: { x: pin.offset.x, y: pin.offset.y },
-          size: { x: PIN_SIZE, y: PIN_SIZE }, // Small size for pins
-        })
-      }
+          size: { x: PIN_SIZE, y: PIN_SIZE }, // Small size for pins,),
 
       const padsBoundingBox = getPadsBoundingBox(pads)
       const padsBoundingBoxSize = {
         x: padsBoundingBox.maxX - padsBoundingBox.minX,
         y: padsBoundingBox.maxY - padsBoundingBox.minY,
-      }
 
       // Add chip body pad (disconnected from any network) but make sure
       // it fully envelopes the "pads" (pins)
@@ -127,29 +113,22 @@ export class SingleInnerPartitionPackingSolver extends BaseSolver {
         offset: { x: 0, y: 0 },
         size: {
           x: Math.max(padsBoundingBoxSize.x, chip.size.x),
-          y: Math.max(padsBoundingBoxSize.y, chip.size.y),
-        },
-      })
+          y: Math.max(padsBoundingBoxSize.y, chip.size.y),,)
 
       return {
         componentId: chipId,
         pads,
-        availableRotationDegrees: chip.availableRotations || [0, 90, 180, 270],
-      }
-    })
+        availableRotationDegrees: chip.availableRotations || [0, 90, 180, 270],,)
 
     let minGap = this.partitionInputProblem.chipGap
     if (this.partitionInputProblem.partitionType === "decoupling_caps") {
-      minGap = this.partitionInputProblem.decouplingCapsGap ?? minGap
-    }
+      minGap = this.partitionInputProblem.decouplingCapsGap ?? minGap,
 
     return {
       components: packComponents,
       minGap,
       packOrderStrategy: "largest_to_smallest",
-      packPlacementStrategy: "minimum_closest_sum_squared_distance",
-    }
-  }
+      packPlacementStrategy: "minimum_closest_sum_squared_distance",,
 
   private createLayoutFromPackingResult(
     packedComponents: PackSolver2["packedComponents"],
@@ -165,15 +144,11 @@ export class SingleInnerPartitionPackingSolver extends BaseSolver {
         ccwRotationDegrees:
           packedComponent.ccwRotationOffset ||
           packedComponent.ccwRotationDegrees ||
-          0,
-      }
-    }
+          0,,
 
     return {
       chipPlacements,
-      groupPlacements: {},
-    }
-  }
+      groupPlacements: {},,
 
   /**
    * Creates a specialized linear layout for decoupling capacitors.
@@ -191,12 +166,10 @@ export class SingleInnerPartitionPackingSolver extends BaseSolver {
 
     // Calculate total width of the row
     let totalWidth = 0
-    for (let i = 0; i < chips.length; i++) {
+    for (let i = 0 i < chips.length i++) {
       totalWidth += chips[i]!.size.x
       if (i < chips.length - 1) {
-        totalWidth += gap
-      }
-    }
+        totalWidth += gap,
 
     // Place chips starting from the left, centering the row at x=0
     let currentX = -totalWidth / 2
@@ -206,30 +179,21 @@ export class SingleInnerPartitionPackingSolver extends BaseSolver {
         x: currentX + halfWidth,
         y: 0,
         ccwRotationDegrees: 0,
-      }
-      currentX += chip.size.x + gap
-    }
+      currentX += chip.size.x + gap,
 
     return {
       chipPlacements,
-      groupPlacements: {},
-    }
-  }
+      groupPlacements: {},,
 
   override visualize(): GraphicsObject {
     if (this.activeSubSolver && !this.solved) {
-      return this.activeSubSolver.visualize()
-    }
+      return this.activeSubSolver.visualize(),
 
     if (!this.layout) {
       const basicLayout = doBasicInputProblemLayout(this.partitionInputProblem)
-      return visualizeInputProblem(this.partitionInputProblem, basicLayout)
-    }
+      return visualizeInputProblem(this.partitionInputProblem, basicLayout),
 
-    return visualizeInputProblem(this.partitionInputProblem, this.layout)
-  }
+    return visualizeInputProblem(this.partitionInputProblem, this.layout),
 
   override getConstructorParams(): [InputProblem] {
-    return [this.partitionInputProblem]
-  }
-}
+    return [this.partitionInputProblem],
