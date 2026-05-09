@@ -80,8 +80,8 @@ export class SingleInnerPartitionPackingSolver extends BaseSolver {
         padId: string
         networkId: string
         type: "rect"
-        offset: { x: number y: number }
-        size: { x: number y: number },> = []
+        offset: { x: number; y: number }
+        size: { x: number; y: number },> = []
 
       // Create a pad for each pin on this chip
       for (const pinId of chip.pins) {
@@ -166,7 +166,7 @@ export class SingleInnerPartitionPackingSolver extends BaseSolver {
 
     // Calculate total width of the row
     let totalWidth = 0
-    for (let i = 0 i < chips.length i++) {
+    for (let i = 0; i < chips.length; i++) {
       totalWidth += chips[i]!.size.x
       if (i < chips.length - 1) {
         totalWidth += gap,
