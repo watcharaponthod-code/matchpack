@@ -38,12 +38,12 @@ test("SingleInnerPartitionPackingSolver arranges decoupling capacitors in a clea
   expect(solver.layout).toBeDefined()
 
   const placements = solver.layout!.chipPlacements
-  
-  expect(placements["C1"].x).toBeCloseTo(-1.5)
-  expect(placements["C2"].x).toBeCloseTo(0)
-  expect(placements["C3"].x).toBeCloseTo(1.5)
-  
-  expect(placements["C1"].y).toBe(0)
-  expect(placements["C2"].y).toBe(0)
-  expect(placements["C3"].y).toBe(0)
+
+  expect(placements["C1"]!.x).toBeCloseTo(-1.5)
+  expect(placements["C2"]!.x).toBeCloseTo(0)
+  expect(placements["C3"]!.x).toBeCloseTo(1.5)
+
+  expect(placements["C1"]!.y).toBe(0)
+  expect(placements["C2"]!.y).toBe(0)
+  expect(placements["C3"]!.y).toBe(0)
 })
