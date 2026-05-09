@@ -19,9 +19,10 @@ test("getInputProblemFromCircuitJsonSchematic01", () => {
             "C1.2",
           ],
           "size": {
-            "x": 0.53,
-            "y": 1.1,
+            "x": 0.5291665999999999,
+            "y": 1.0583333000000001,
           },
+        },
         },
         "D1": {
           "chipId": "D1",
@@ -30,9 +31,10 @@ test("getInputProblemFromCircuitJsonSchematic01", () => {
             "D1.2",
           ],
           "size": {
-            "x": 0.62,
-            "y": 1.08,
+            "x": 0.6221256000000088,
+            "y": 1.0521572000000003,
           },
+        },
         },
         "I2C": {
           "chipId": "I2C",
@@ -42,9 +44,10 @@ test("getInputProblemFromCircuitJsonSchematic01", () => {
             "I2C.3",
           ],
           "size": {
-            "x": 0.9,
-            "y": 0.53,
+            "x": 0.8843008999999997,
+            "y": 0.5299361999999987,
           },
+        },
         },
         "INT_JP": {
           "chipId": "INT_JP",
@@ -53,9 +56,10 @@ test("getInputProblemFromCircuitJsonSchematic01", () => {
             "INT_JP.2",
           ],
           "size": {
-            "x": 0.3,
-            "y": 0.9,
+            "x": 0.30829299999999904,
+            "y": 0.8811970999999998,
           },
+        },
         },
         "J1": {
           "chipId": "J1",
@@ -105,9 +109,10 @@ test("getInputProblemFromCircuitJsonSchematic01", () => {
             "LED.2",
           ],
           "size": {
-            "x": 0.3,
-            "y": 0.9,
+            "x": 0.30829299999999904,
+            "y": 0.8811970999999998,
           },
+        },
         },
         "Q1": {
           "chipId": "Q1",
@@ -117,9 +122,10 @@ test("getInputProblemFromCircuitJsonSchematic01", () => {
             "Q1.3",
           ],
           "size": {
-            "x": 0.89,
-            "y": 1.16,
+            "x": 0.8935117710000002,
+            "y": 1.1601665819999987,
           },
+        },
         },
         "R2": {
           "chipId": "R2",
@@ -195,33 +201,45 @@ test("getInputProblemFromCircuitJsonSchematic01", () => {
       "chipPinMap": {
         "C1.1": {
           "offset": {
-            "x": 0,
-            "y": 0.55,
+            "x": -0.00027334999999961695,
+            "y": 0.5512093000000002,
           },
+          "pinId": "C1.1",
+          "side": "y+",
+        },
           "pinId": "C1.1",
           "side": "y+",
         },
         "C1.2": {
           "offset": {
-            "x": 0,
-            "y": -0.55,
+            "x": 0.00027334999999961695,
+            "y": -0.5512093000000002,
           },
+          "pinId": "C1.2",
+          "side": "y-",
+        },
           "pinId": "C1.2",
           "side": "y-",
         },
         "D1.1": {
           "offset": {
-            "x": 0,
-            "y": 0.54,
+            "x": 0.004432900000001183,
+            "y": 0.5362093000000003,
           },
+          "pinId": "D1.1",
+          "side": "y+",
+        },
           "pinId": "D1.1",
           "side": "y+",
         },
         "D1.2": {
           "offset": {
-            "x": 0,
-            "y": -0.5399999999999991,
+            "x": 0.004886400000003732,
+            "y": -0.5362092999999994,
           },
+          "pinId": "D1.2",
+          "side": "y-",
+        },
           "pinId": "D1.2",
           "side": "y-",
         },
